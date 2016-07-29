@@ -1,8 +1,4 @@
-# script para calcular radiacao global
-#--------------------------------##
-# funcao para calcular a radicao para o dia de acordo o dia do ano
 energy.d = function(x, dia.jul){
-#  dia.jul = 2455923
   dayl=daylength(x[7],x[8],dia.jul,-3)
   dayseq=seq(dayl[1],dayl[2],1)
   dayseq2 <- paste(floor(dayseq), round((dayseq-floor(dayseq))*60), sep=":")
@@ -12,7 +8,7 @@ energy.d = function(x, dia.jul){
   jdd = JD(m)
   sv = sunvector(jdd,x[6],x[7],-3)
   zenith=sunpos(sv)[,2]
-  cos_inc_sfc=as.numeric(sv%*%as.vector(normalvector(0,0))) ## or sum(sunv*normalvector(0,0))
+  cos_inc_sfc=as.numeric(sv%*%as.vector(normalvector(0,0)))
   cos_inc_sfc[cos_inc_sfc<0]=0
   ins.res = insolation(zenith = zenith,
                        jd=jdd, 
@@ -25,5 +21,3 @@ energy.d = function(x, dia.jul){
   In  = ins.res[,'In']*as.numeric(cos_inc_sfc)*3600*deltat
   Id  = ins.res[,'Id']*3600*deltat
   sum((In*1e-6)+(Id*1e-6),na.rm=T)}
-
-
